@@ -1,0 +1,21 @@
+# Ignore Python virtual environments
+backend/venv/
+
+# Ignore environment files
+backend/.env
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+!frontend/.env.test
+
+# Ignore compiled Python files
+backend/__pycache__/
+
+# Ignore SvelteKit build files
+frontend/.svelte-kit/
+frontend/build/
+frontend/output/
+frontend/.vercel/
+frontend/vite.config.js.timestamp-*
+frontend/vite.config.ts.timestamp-*
+
