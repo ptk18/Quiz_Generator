@@ -1,6 +1,9 @@
 <script lang="ts">
     import { userInfo } from "$lib/loginUserInfo";
     import { goto } from '$app/navigation'; // Import SvelteKit's navigation function
+    //const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL;
+    console.log("API URL:", apiUrl);
 
     interface UserLogin {
         email: string;
@@ -20,7 +23,8 @@
         };
 
         try {
-            const response = await fetch("http://localhost:8000/login/", {
+            //const response = await fetch("http://backend:8000/login/", {
+            const response = await fetch("${apiUrl}/login/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -5,7 +5,7 @@
     let difficulty = '';
     let generatedQuiz = null;
     let isLoading = false;
- 
+    const apiUrl = import.meta.env.VITE_API_URL;
  
     async function handleSubmit(event) {
         event.preventDefault();
@@ -18,7 +18,8 @@
  
  
         try {
-            const response = await fetch('http://localhost:8000/api/generate-quiz', {
+            //const response = await fetch('http://backend:8000/api/generate-quiz', {
+            const response = await fetch('${apiUrl}/api/generate-quiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

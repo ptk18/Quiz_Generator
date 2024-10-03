@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 import google.generativeai as genai
 import os
+from dotenv import load_dotenv
 import logging
 from typing import List
 import json
@@ -19,7 +20,9 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # Your SvelteKit frontend's origin
+    "http://localhost:5173",   # Local SvelteKit development server
+    "http://localhost:3000",    # SvelteKit preview/production in Docker
+    "http://frontend:3000",  # Your SvelteKit frontend's origin
 ]
 
 app.add_middleware(
@@ -30,6 +33,8 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Set your Gemini API key
 API_KEY = os.getenv("API_KEY")
@@ -173,6 +178,12 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return {"id": user.id, "name": user.name, "email": user.email}
 
+@app.get("/users")
+def get_all_users(db: Session = Depends(get_db)):
+    users = db.query(User).all() 
+    if not users:
+        raise HTTPException(status_code=404, detail="No users found")
+    return users
 
 class QuestionAnswer(BaseModel):
     question: str

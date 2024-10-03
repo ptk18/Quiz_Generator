@@ -1,5 +1,6 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     interface User{
         name: string;
@@ -27,7 +28,8 @@
         };
 
         try {
-            const response = await fetch("http://localhost:8000/create-user/", {
+            //const response = await fetch("http://backend:8000/create-user/", {
+            const response = await fetch("${apiUrl}/create-user/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
