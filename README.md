@@ -10,7 +10,9 @@
 
 2. Copy `.env.example` files:
    ```bash
+   cp .env.example .env
    cp frontend/.env.example frontend/.env
+   cp backend/.env.example backend/.env
    ```
 
 3. Run Docker Compose:
@@ -21,3 +23,4 @@
 4. Access the application:
    - Frontend: `http://localhost:5173`
    - Backend (API): `http://localhost:8000`
+   - Database: `http://localhost:3306`
