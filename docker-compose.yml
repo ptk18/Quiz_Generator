@@ -2,24 +2,27 @@ version: '3'
 
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
+    build: ./frontend
+    container_name: frontend
     ports:
-      - "3000:3000"
-    environment:
-      - VITE_API_URL=http://backend:8000  # URL for browser requests
-      - API_URL=http://backend:8000         # URL for server-side requests
+      - "5173:5173"      
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
+    build: ./backend
+    container_name: backend
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/backend
+      - ./backend/data.db:/backend/data.db
+    networks:
+      - app-network
+
 
 networks:
-  default:
-    name: quiz_network
+  app-network:
+    driver: bridge

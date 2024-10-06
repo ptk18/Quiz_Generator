@@ -2,24 +2,25 @@
 FROM node:18
 
 # Set working directory
-WORKDIR /app
+WORKDIR /frontend
 
 # Copy package.json and package-lock.json
-COPY frontend/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+#RUN npm install
 
 # Copy the rest of the frontend code
-COPY frontend/ .
+COPY . /frontend
 
 # Build the app
-ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL}
+#ARG VITE_API_URL
+#ENV VITE_API_URL=${VITE_API_URL}
 RUN npm run build
 
 # Expose the port the app will run on
-EXPOSE 3000
+#EXPOSE 3000
 
 # Start the application
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+#CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+CMD npm rebuild esbuild && npm run dev -- --host

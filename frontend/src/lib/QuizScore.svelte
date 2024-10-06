@@ -2,7 +2,7 @@
     import { page } from "$app/stores";
     import { createEventDispatcher } from 'svelte';
     import { selectedQuiz } from "$lib/quizStore"; // Import the store
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL;
     // Define the shape of a single quiz
     interface Quiz {
         q_id: number;
@@ -30,8 +30,8 @@
 
     async function deleteQuiz(quizId: number) {
         try {
-            //const response = await fetch(`http://backend:8000/quizzes/${quizId}/delete?current_user_id=${quiz.user_id}`, {
-                const response = await fetch(`${apiUrl}/quizzes/${quizId}/delete?current_user_id=${quiz.user_id}`, {
+            
+            const response = await fetch(`${API_URL}/quizzes/${quizId}/delete?current_user_id=${quiz.user_id}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

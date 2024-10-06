@@ -1,14 +1,15 @@
 <script lang="ts">
     import { userInfo } from "$lib/loginUserInfo";
-    import { goto } from '$app/navigation'; // Import SvelteKit's navigation function
-    //const apiUrl = import.meta.env.VITE_API_URL;
-    const apiUrl = import.meta.env.VITE_API_URL;
-    console.log("API URL:", apiUrl);
+    import { goto } from '$app/navigation';
 
     interface UserLogin {
         email: string;
         password: string;
     }
+
+    // Use localhost for browser-based requests
+    //const API_URL = 'http://localhost:8000';
+    const API_URL = import.meta.env.VITE_API_URL;
 
     async function handleLogin(event: Event) {
         event.preventDefault();
@@ -23,8 +24,7 @@
         };
 
         try {
-            //const response = await fetch("http://backend:8000/login/", {
-            const response = await fetch("${apiUrl}/login/", {
+            const response = await fetch(`${API_URL}/login/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -36,7 +36,6 @@
                 const data = await response.json();
                 console.log("login data here ", data);
                 
-                // Update the store
                 userInfo.set({
                     id: data.id,
                     name: data.name,
@@ -44,7 +43,6 @@
                     isLoggedIn: true,
                 });
 
-                // Use SvelteKit's goto for navigation
                 goto('/profile');
             } else {
                 const errorData = await response.json();
@@ -52,6 +50,7 @@
             }
         } catch (error) {
             console.error("Unexpected error:", error);
+            alert("Failed to connect to the server. Please try again.");
         }
     }
 </script>

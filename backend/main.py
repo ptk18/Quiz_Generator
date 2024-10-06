@@ -21,8 +21,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",   # Local SvelteKit development server
-    "http://localhost:3000",    # SvelteKit preview/production in Docker
-    "http://frontend:3000",  # Your SvelteKit frontend's origin
+    "http://frontend:5173",  # Only if frontend runs on this port in Docker
 ]
 
 app.add_middleware(
@@ -32,6 +31,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods (POST, GET, etc.)
     allow_headers=["*"],  # Allows all headers
 )
+
 
 # Load environment variables from .env file
 load_dotenv()

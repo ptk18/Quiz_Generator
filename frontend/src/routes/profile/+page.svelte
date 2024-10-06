@@ -3,7 +3,8 @@
     import { userInfo } from "$lib/loginUserInfo";
     import QuizScore from "$lib/QuizScore.svelte";
     import { goto } from '$app/navigation';
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL;
+
 
     let user = $userInfo; // Reactive subscription to the store
 
@@ -51,8 +52,7 @@
     });
 
     async function fetchQuizzes() {
-        //const response = await fetch(`http://backend:8000/users/${currentUser.id}/quizzes`);
-        const response = await fetch(`${apiUrl}/users/${currentUser.id}/quizzes`);
+        const response = await fetch(`${API_URL}/users/${currentUser.id}/quizzes`);
         const data = await response.json();
         if (data.detail === "No quizzes found for this user") {
             noQuizzes = true;

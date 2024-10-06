@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { userInfo } from "$lib/loginUserInfo";
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL;
 
     let score: number = 0;
     let total: number = 0;
@@ -69,7 +69,7 @@
             };
 
             //const response = await fetch('http://backend:8000/save-quiz/', {
-            const response = await fetch('${apiUrl}/save-quiz/', {
+            const response = await fetch(`${API_URL}/save-quiz/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
