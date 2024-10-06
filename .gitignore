@@ -2,11 +2,17 @@
 backend/venv/
 
 # Ignore environment files
+.env
+.env.*
+!.env.example
+
 backend/.env
+backend/.env.*
+!backend/.env.example
+
 frontend/.env
 frontend/.env.*
 !frontend/.env.example
-!frontend/.env.test
 
 # Ignore compiled Python files
 backend/__pycache__/
