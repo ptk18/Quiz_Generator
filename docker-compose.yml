@@ -16,13 +16,30 @@ services:
     container_name: backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/backend
-      - ./backend/data.db:/backend/data.db
+    depends_on:
+      - db
+    # environments:
+    #   - DATABASE_URL=mysql+pymysql://root:ptk18@db:3306/QuizGeneratorDB
     networks:
       - app-network
 
+  db:
+    image: mysql:latest
+    container_name: db
+    environment: 
+      MYSQL_ROOT_PASSWORD: ptk18
+      MYSQL_DATABASE: QuizGeneratorDB
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
